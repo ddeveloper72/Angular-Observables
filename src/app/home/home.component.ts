@@ -30,6 +30,9 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     this.firstObservableSubscription = customIntervalObservable.subscribe(data => {
       console.log(data);
+    }, error => {
+        console.log(error);
+        alert(error.message);
     });
   }
 
