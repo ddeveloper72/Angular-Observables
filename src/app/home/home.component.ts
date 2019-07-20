@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy, ErrorHandler } from '@angular/core';
 import { interval, Subscription, Observable } from 'rxjs';
 import { timeout } from 'q';
+import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 
 @Component({
   selector: 'app-home',
@@ -20,6 +21,9 @@ export class HomeComponent implements OnInit, OnDestroy {
       let count = 0;
       setInterval( () => {
         observer.next(count);
+        if (count > 3) {
+          observer.error(new Error('Count is greater than 3!'));
+        }
         count++;
       }, 1000);
     });
