@@ -31,18 +31,18 @@ export class HomeComponent implements OnInit, OnDestroy {
       }, 1000);
     });
 
-    customIntervalObservable.pipe(map((data: number) => {
-      return 'Round: ' + (data + 1);
-    }));
-
-    this.firstObservableSubscription = customIntervalObservable.subscribe(data => {
-      console.log(data);
-    }, error => {
-        console.log(error);
-        alert(error.message);
-    }, () => {
-      console.log('Completed');
-    });
+    this.firstObservableSubscription = customIntervalObservable
+      .pipe(map((data: number) => {
+          return 'Round: ' + (data + 1);
+        }))
+      .subscribe(data => {
+          console.log(data);
+        }, error => {
+          console.log(error);
+          alert(error.message);
+        }, () => {
+          console.log("Completed");
+        });
   }
 
   ngOnDestroy(): void {
