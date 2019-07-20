@@ -1,7 +1,7 @@
-import { Component, OnInit, OnDestroy, ErrorHandler } from '@angular/core';
-import { interval, Subscription, Observable } from 'rxjs';
-import { timeout } from 'q';
-import { Message } from '@angular/compiler/src/i18n/i18n_ast';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { interval, Subscription, Observable, pipe } from 'rxjs';
+import { map } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-home',
@@ -31,8 +31,12 @@ export class HomeComponent implements OnInit, OnDestroy {
       }, 1000);
     });
 
+    customIntervalObservable.pipe(map((data: number) => {
+      return 'Round: ' + (data + 1);
+    }));
+
     this.firstObservableSubscription = customIntervalObservable.subscribe(data => {
-      console.log('Round: ' + (data + 1));
+      console.log(data);
     }, error => {
         console.log(error);
         alert(error.message);
